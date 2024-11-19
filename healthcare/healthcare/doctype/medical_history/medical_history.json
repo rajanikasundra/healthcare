@@ -1,0 +1,70 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-11-18 17:51:05.364062",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "patient_condition",
+  "date_diagnosed",
+  "notes",
+  "column_break_oroh",
+  "treatment",
+  "status"
+ ],
+ "fields": [
+  {
+   "fieldname": "patient_condition",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "label": "Patient Condition"
+  },
+  {
+   "fieldname": "date_diagnosed",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "label": "Date Diagnosed"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Text",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "label": "Notes"
+  },
+  {
+   "fieldname": "column_break_oroh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "treatment",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "label": "Treatment"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "label": "Status",
+   "options": "Active\nResolved\nChronic"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-11-18 18:00:04.314957",
+ "modified_by": "Administrator",
+ "module": "healthcare",
+ "name": "Medical History",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -148,7 +148,13 @@ app_license = "mit"
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
+scheduler_events = {
+    "cron": {
+        "* * * * *": [
+            "healthcare.notification.send_reminder_to_receptionist"
+        ]
+    }
+    
 # 	"all": [
 # 		"healthcare.tasks.all"
 # 	],
@@ -164,7 +170,7 @@ app_license = "mit"
 # 	"monthly": [
 # 		"healthcare.tasks.monthly"
 # 	],
-# }
+}
 
 # Testing
 # -------

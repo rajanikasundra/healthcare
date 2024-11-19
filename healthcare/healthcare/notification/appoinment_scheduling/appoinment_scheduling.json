@@ -1,0 +1,30 @@
+{
+ "attach_print": 0,
+ "channel": "System Notification",
+ "creation": "2024-11-18 18:25:59.424691",
+ "days_in_advance": 0,
+ "docstatus": 0,
+ "doctype": "Notification",
+ "document_type": "Appoinment Scheduling",
+ "enabled": 1,
+ "event": "Save",
+ "idx": 0,
+ "is_standard": 1,
+ "message": "Add your message here",
+ "message_type": "Markdown",
+ "modified": "2024-11-18 18:28:15.441218",
+ "modified_by": "Administrator",
+ "module": "healthcare",
+ "name": "Appoinment Scheduling",
+ "owner": "Administrator",
+ "property_value": "nothing",
+ "recipients": [
+  {
+   "receiver_by_role": "System Manager"
+  }
+ ],
+ "send_system_notification": 0,
+ "send_to_all_assignees": 0,
+ "set_property_after_alert": "reason_for_appointement",
+ "subject": "Coming soon"
+}
