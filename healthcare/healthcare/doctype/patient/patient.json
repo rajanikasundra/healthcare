@@ -19,7 +19,8 @@
   "medical_history",
   "section_break_eeyt",
   "visit_note",
-  "amended_from"
+  "amended_from",
+  "amount"
  ],
  "fields": [
   {
@@ -100,12 +101,17 @@
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Int",
+   "label": "Amount"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-11-19 09:55:41.970433",
+ "modified": "2024-11-21 03:04:10.183189",
  "modified_by": "Administrator",
  "module": "healthcare",
  "name": "Patient",
@@ -137,6 +143,17 @@
   },
   {
    "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Patient",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
    "delete": 1,
    "email": 1,
    "export": 1,
@@ -144,9 +161,7 @@
    "read": 1,
    "report": 1,
    "role": "Receptionist",
-   "share": 1,
-   "submit": 1,
-   "write": 1
+   "share": 1
   }
  ],
  "sort_field": "modified",

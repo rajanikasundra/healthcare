@@ -43,7 +43,14 @@ app_license = "mit"
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
-# doctype_js = {"doctype" : "public/js/doctype.js"}
+
+doctype_js = {"Customer" : "public/js/customer.js",
+              "Appointment" : "public/js/appointment.js",
+            #   "Sales Invoice" : "public/js/sales_invoice.js"
+            }
+
+
+
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -137,23 +144,33 @@ app_license = "mit"
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
+doc_events = {
 # 	"*": {
 # 		"on_update": "method",
 # 		"on_cancel": "method",
 # 		"on_trash": "method"
 # 	}
-# }
+    "Sales Invoice":{
+        "on_submit": "healthcare.notification.send_payment_reminders",
+        # "on_submit": "healthcare.notification.update_appointment_status",
+        "before_save": "healthcare.sales_invoice.before_save"
+    },
+
+    "Material Request": {
+        "on_submit": "healthcare.material_request.create_purchase_order_from_material_request"
+    }
+}
 
 # Scheduled Tasks
 # ---------------
 
 scheduler_events = {
     "cron": {
-        "* * * * *": [
+        "* * * * *":[
             "healthcare.notification.send_reminder_to_receptionist"
         ]
     }
+    
     
 # 	"all": [
 # 		"healthcare.tasks.all"
