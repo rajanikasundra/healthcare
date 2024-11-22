@@ -69,13 +69,16 @@ def send_notification(invoice_doc):
 
 
 
+
+
+
 # set completed status in appoinment doctype
-def update_appointment_status(doc, method):
+# def update_appointment_status(doc, method):
     
-    if doc.appointment: 
-        appointment = frappe.get_doc("Appointment", doc.appointment)
+#     if doc.customer: 
+#         appointment = frappe.get_doc("Appointment", doc.customer)
         
-        appointment.status = "Completed"
-        appointment.save()
+#         appointment.status = "Completed"
+#         appointment.save()
         
-        frappe.msgprint(f"Appointment {appointment.name} status updated to Completed.")
+#         frappe.msgprint(f"Appointment {appointment.name} status updated to Completed.")

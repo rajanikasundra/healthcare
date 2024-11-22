@@ -158,6 +158,10 @@ doc_events = {
 
     "Material Request": {
         "on_submit": "healthcare.material_request.create_purchase_order_from_material_request"
+    },
+    
+    "Appointment":{
+        "before_save" : "healthcare.appoinment.before_save"
     }
 }
 

@@ -6,19 +6,30 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "name1"
+  "name1",
+  "email"
  ],
  "fields": [
   {
    "fieldname": "name1",
    "fieldtype": "Data",
-   "label": "name",
+   "in_list_view": 1,
+   "label": "Name",
+   "reqd": 1,
    "unique": 1
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Email",
+   "options": "Email",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-11-18 17:43:45.806631",
+ "modified": "2024-11-22 12:06:55.831554",
  "modified_by": "Administrator",
  "module": "healthcare",
  "name": "Doctor",

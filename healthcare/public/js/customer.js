@@ -6,31 +6,12 @@ frappe.ui.form.on('Customer', {
 
 
     refresh: function(frm){
-        if (!frm.is_new() && frm.doc.disabled === 0) {
-            
-            frm.add_custom_button(__('Doctor Charge Invoice'), function () {
-                frappe.call({
-                    method: "healthcare.payment_entry.generate_doctor_invoice",
-                    args: {
-                        customer_name: frm.doc.name
-                    },
-                    callback: function (response) {
-                        if (response.message) {
-                            window.location.href = response.message;
-                        }
-                    }
-                });
-            }, __("Actions"));
-
-
             // for customer to appointment
             frm.add_custom_button(__('Create Appointment'), function () {
                 const customer_name = encodeURIComponent(frm.doc.name);
                 window.location.href = `/app/appointment/new-appointment-1?customer_name=${customer_name}`;
             }, __("Actions"));
 
-
-        }
     },
 
 });
