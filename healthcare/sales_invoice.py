@@ -14,4 +14,5 @@ def before_save(doc,event):
     doc.rounded_total = round(net_payable)  
     doc.grand_total = net_payable
     doc.outstanding_amount = net_payable
+
     

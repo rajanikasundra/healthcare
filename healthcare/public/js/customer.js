@@ -9,7 +9,7 @@ frappe.ui.form.on('Customer', {
             // for customer to appointment
             frm.add_custom_button(__('Create Appointment'), function () {
                 const customer_name = encodeURIComponent(frm.doc.name);
-                window.location.href = `/app/appointment/new-appointment-1?customer_name=${customer_name}`;
+                window.location.href = `/app/appointment/new-appointment-1?custom_patient=${customer_name}`;
             }, __("Actions"));
 
     },

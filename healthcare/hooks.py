@@ -150,10 +150,10 @@ doc_events = {
 # 		"on_cancel": "method",
 # 		"on_trash": "method"
 # 	}
-    "Sales Invoice":{
-        "on_submit": "healthcare.notification.send_payment_reminders",
+    "Sales Invoice": {
+        "before_save": "healthcare.notification.send_payment_reminders",
         # "on_submit": "healthcare.notification.update_appointment_status",
-        "before_save": "healthcare.sales_invoice.before_save"
+        # "before_save": "healthcare.sales_invoice.before_save"
     },
 
     "Material Request": {

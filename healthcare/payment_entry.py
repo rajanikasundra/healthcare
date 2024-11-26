@@ -1,14 +1,6 @@
 import frappe
 
-
-
-
-
-
-
-
 #  appointement to sales invoice
-
 
 @frappe.whitelist()
 def generate_appointment_invoice(appointment_name):

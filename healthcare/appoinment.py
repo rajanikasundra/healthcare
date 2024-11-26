@@ -4,7 +4,7 @@ def before_save(doc, event):
 			
         user = frappe.new_doc("User")
         user.email = doc.customer_email
-        user.first_name = doc.customer_name
+        user.first_name = doc.custom_patient
         user.enabled = 1
         user.append("roles", {"role": "Patient"})
         user.save(ignore_permissions=True)
@@ -14,14 +14,21 @@ def before_save(doc, event):
         
         
         
-    # set user permission
+    # set user permission for doctor
     
     if doc.is_new() and frappe.db.exists("User", doc.customer_email):
 			
         user = frappe.new_doc("User Permission")
         user.user = doc.custom_doctor_email
         user.allow = "Customer"
-        user.for_value = doc.customer_name
+        user.for_value = doc.custom_patient
+        user.save(ignore_permissions=True)
+        
+         # set user permission for patient
+        user = frappe.new_doc("User Permission")
+        user.user = doc.customer_email
+        user.allow = "Customer"
+        user.for_value = doc.custom_patient
         user.save(ignore_permissions=True)
 
     
