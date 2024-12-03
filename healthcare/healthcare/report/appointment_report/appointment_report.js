@@ -32,7 +32,7 @@ frappe.query_reports["appointment report"] = {
             fieldname: "status",
             label: __("Status"),
             fieldtype: "Select",
-            options: "\nOpen\nUnverified\nClosed", 
+            options: "\nOpen\nUnverified\nClosed\nConform", 
         },
     ],
 };

@@ -38,38 +38,6 @@ def create_system_notification(user, message):
         user=user
     )
     
-    
-    
-    
-    
-    
-# import frappe
-# from frappe.utils import nowdate
-
-# def send_payment_reminders(doc,events):
-#     print("\n\n aaaaaaaaa1  \n\n")
-#     overdue_invoices = frappe.get_all('Sales Invoice', filters={
-#         'outstanding_amount': ['>', 0],
-#         'due_date': ['<=', nowdate()]
-#     })
-#     print("\n\n aaaaaaaaa2  \n\n")
-#     for invoice in overdue_invoices:
-#         invoice_doc = frappe.get_doc('Sales Invoice', invoice.name)
-#         print(f"\n\n aaaaaaaaa {invoice}  \n\n")
-#         send_notification(invoice_doc)
-
-# def send_notification(invoice_doc):
-#     print("\n\n aaaaaaaaa2323  \n\n")
-#     frappe.notify(
-#         title="Payment Reminder: Invoice #{}".format(invoice_doc.name),
-#         message="Dear Customer, your invoice is overdue. Please make the payment at the earliest.",
-#         type="warning"  # You can change the type to "info", "error", etc.
-#     )
-
-
-
-
-import frappe
 from frappe.utils import nowdate
 
 def send_payment_reminders(doc, method):
@@ -141,12 +109,13 @@ def send_system_notifications(invoice_doc):
 
 
 # set completed status in appoinment doctype
-# def update_appointment_status(doc, method):
+from frappe.model.workflow import apply_workflow
+def update_appointment_status(doc, method):
     
-#     if doc.customer: 
-#         appointment = frappe.get_doc("Appointment", doc.customer)
-        
-#         appointment.status = "Completed"
-#         appointment.save()
-        
-#         frappe.msgprint(f"Appointment {appointment.name} status updated to Completed.")
+    if doc.customer: 
+        appointment = frappe.get_doc("Appointment", doc.custom_appoinment)
+        appointment.status = "Completed"
+        frappe.msgprint(f"Appointment {appointment.name} status updated to Completed.")
+
+        apply_workflow(appointment,"Complete")
+        appointment.save(ignore_permissions=True)

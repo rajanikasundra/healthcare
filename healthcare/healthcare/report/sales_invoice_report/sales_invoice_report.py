@@ -1,61 +1,52 @@
-# Copyright (c) 2024, sigzen and contributors
-# For license information, please see license.txt
-
 import frappe
 
 def execute(filters=None):
-    # Define report columns
-    columns = [
-        {"label": "Invoice Date", "fieldname": "posting_date", "fieldtype": "Date", "width": 120},
-        {"label": "Invoice ID", "fieldname": "name", "fieldtype": "Link", "options": "Sales Invoice", "width": 150},
-        {"label": "Customer", "fieldname": "customer_name", "fieldtype": "Data", "width": 200},
-        {"label": "Service Type", "fieldname": "service_type", "fieldtype": "Data", "width": 150},
-        # {"label": "Patient Age", "fieldname": "patient_age", "fieldtype": "Int", "width": 100},
-        {"label": "Revenue", "fieldname": "revenue", "fieldtype": "Currency", "width": 150},
-    ]
-
-    # Fetch data
+    columns = get_columns()
     data = get_data(filters)
-
     return columns, data
 
+def get_columns():
+    return [
+        {"label": "Invoice Date", "fieldname": "posting_date", "fieldtype": "Date", "width": 120},
+        {"label": "Invoice Number", "fieldname": "invoice_number", "fieldtype": "Link", "options": "Sales Invoice", "width": 150},
+        {"label": "Customer", "fieldname": "customer", "fieldtype": "Link", "options": "Customer", "width": 200},
+        {"label": "Item Name", "fieldname": "item_name", "fieldtype": "Data", "width": 200},
+        {"label": "Quantity", "fieldname": "qty", "fieldtype": "Float", "width": 100},
+        {"label": "Amount", "fieldname": "amount", "fieldtype": "Currency", "width": 150},
+    ]
 
 def get_data(filters):
-    # Build the query dynamically with filters
+    # Build dynamic conditions
     conditions = []
-    if filters.get("service_type"):
-        conditions.append("si_item.item_code = %(service_type)s")
-    if filters.get("from_date"):
-        conditions.append("si.posting_date >= %(from_date)s")
-    if filters.get("to_date"):
-        conditions.append("si.posting_date <= %(to_date)s")
+    if filters.get("from_date") and filters.get("to_date"):
+        conditions.append("si.posting_date BETWEEN %(from_date)s AND %(to_date)s")
+    if filters.get("customer"):
+        conditions.append("si.customer = %(customer)s")
+    conditions.append("sii.item_group = 'Medicine'")  # Filter for medicines
 
     where_clause = " AND ".join(conditions) if conditions else "1=1"
 
-    # Query to fetch data
+    # Use SQL to join parent and child tables
     data = frappe.db.sql(
         f"""
         SELECT
             si.posting_date,
-            si.name,
-            si.customer_name,
-            si_item.item_code AS service_type,
-            p.age AS patient_age,
-            si_item.amount AS revenue
+            si.name AS invoice_number,
+            si.customer,
+            sii.item_name,
+            sii.qty,
+            sii.amount
         FROM
             `tabSales Invoice` si
-        JOIN
-            `tabSales Invoice Item` si_item ON si.name = si_item.parent
-        LEFT JOIN
-            `tabPatient` p ON si.customer = p.name
+        INNER JOIN
+            `tabSales Invoice Item` sii ON si.name = sii.parent
         WHERE
             {where_clause}
         ORDER BY
             si.posting_date DESC
         """,
-        filters or {},
-        as_dict=True,
+        filters,
+        as_dict=True
     )
 
     return data
-

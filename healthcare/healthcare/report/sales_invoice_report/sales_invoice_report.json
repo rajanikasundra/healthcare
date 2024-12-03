@@ -1,47 +1,22 @@
 {
  "add_total_row": 0,
  "columns": [],
- "creation": "2024-11-21 12:54:38.825191",
+ "creation": "2024-11-27 11:22:24.242467",
  "disabled": 0,
  "docstatus": 0,
  "doctype": "Report",
- "filters": [
-  {
-   "fieldname": "service_type",
-   "fieldtype": "Link",
-   "label": "Service Type",
-   "mandatory": 0,
-   "options": "Item",
-   "wildcard_filter": 0
-  },
-  {
-   "default": "\"2024-01-01\"",
-   "fieldname": "from_date",
-   "fieldtype": "Date",
-   "label": "From Date",
-   "mandatory": 0,
-   "wildcard_filter": 0
-  },
-  {
-   "default": "\"2024-12-31\"",
-   "fieldname": "to_date",
-   "fieldtype": "Check",
-   "label": "To Date",
-   "mandatory": 0,
-   "wildcard_filter": 0
-  }
- ],
+ "filters": [],
  "idx": 0,
  "is_standard": "Yes",
  "letterhead": null,
- "modified": "2024-11-21 12:57:12.246928",
+ "modified": "2024-11-27 11:24:13.768605",
  "modified_by": "Administrator",
  "module": "healthcare",
- "name": "sales invoice report",
+ "name": "sales_invoice_report",
  "owner": "Administrator",
  "prepared_report": 0,
  "ref_doctype": "Sales Invoice",
- "report_name": "sales invoice report",
+ "report_name": "sales_invoice_report",
  "report_type": "Script Report",
  "roles": [],
  "timeout": 0

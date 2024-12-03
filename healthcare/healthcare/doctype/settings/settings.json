@@ -1,0 +1,41 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-12-02 15:47:18.535324",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "set_random_serial_no"
+ ],
+ "fields": [
+  {
+   "default": "0",
+   "fieldname": "set_random_serial_no",
+   "fieldtype": "Check",
+   "label": "set random serial no."
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2024-12-02 15:47:44.097815",
+ "modified_by": "Administrator",
+ "module": "healthcare",
+ "name": "Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

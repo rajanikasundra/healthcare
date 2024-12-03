@@ -10,29 +10,85 @@ def before_save(doc, event):
         user.save(ignore_permissions=True)
 
         frappe.msgprint(f"User {doc.customer_email} created with the Patient role.")
-   
-        
-        
-        
-    # set user permission for doctor
     
-    if doc.is_new() and frappe.db.exists("User", doc.customer_email):
-			
-        user = frappe.new_doc("User Permission")
-        user.user = doc.custom_doctor_email
-        user.allow = "Customer"
-        user.for_value = doc.custom_patient
-        user.save(ignore_permissions=True)
+    
+    # user permission for doctor
+    if frappe.db.exists("User", doc.custom_doctor_email):
+        create_user_permission(
+            user=doc.custom_doctor_email,
+            allow="Customer",
+            for_value=doc.custom_patient
+        )
+
+    # Set User Permission for the Patient
+    if frappe.db.exists("User", doc.customer_email):
+        create_user_permission(
+            user=doc.customer_email,
+            allow="Customer",
+            for_value=doc.custom_patient
+        )
+
+def create_user_permission(user, allow, for_value):
+    """
+    Create a new User Permission if it doesn't already exist.
+    """
+    existing_permission = frappe.db.exists(
+        "User Permission",
+        {
+            "user": user,
+            "allow": allow,
+            "for_value": for_value
+        }
+    )
+    if not existing_permission:
+        user_permission = frappe.new_doc("User Permission")
+        user_permission.user = user
+        user_permission.allow = allow
+        user_permission.for_value = for_value
+        user_permission.save(ignore_permissions=True)
+    else : frappe.msgprint("already exists permission")
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
         
-         # set user permission for patient
-        user = frappe.new_doc("User Permission")
-        user.user = doc.customer_email
-        user.allow = "Customer"
-        user.for_value = doc.custom_patient
-        user.save(ignore_permissions=True)
+        
 
     
     
+
+  
+    
+    
+from erpnext.crm.doctype.appointment.appointment import Appointment
+class CustomAppoinment(Appointment):
+    def send_confirmation_email(self):
+        verify_url = self._get_verify_url()
+        template = "confirm_appointment"
+        args = {
+			"link": verify_url,
+			"site_url": frappe.utils.get_url(),
+			"full_name": self.custom_patient,
+		}
+        frappe.sendmail(
+			recipients=[self.customer_email],
+			template=template,
+			args=args,
+			subject=("Appointment Confirmation"),
+		)
+        if frappe.session.user == "Guest":
+            frappe.msgprint(("Please check your email to confirm the appointment"))
+        else:
+            frappe.msgprint(("Appointment was created. But no lead was found. Please check the email to confirm")
+			)
     
     
     
@@ -57,5 +113,5 @@ def before_save(doc, event):
     #         "for_value": doctor_email
     #     }).insert(ignore_permissions=True)
         
-    frappe.msgprint("success")
+    # frappe.msgprint("success")
 

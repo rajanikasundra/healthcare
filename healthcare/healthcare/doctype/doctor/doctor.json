@@ -7,7 +7,9 @@
  "engine": "InnoDB",
  "field_order": [
   "name1",
-  "email"
+  "email",
+  "charges",
+  "discount"
  ],
  "fields": [
   {
@@ -25,11 +27,21 @@
    "label": "Email",
    "options": "Email",
    "reqd": 1
+  },
+  {
+   "fieldname": "charges",
+   "fieldtype": "Int",
+   "label": "Charges"
+  },
+  {
+   "fieldname": "discount",
+   "fieldtype": "Float",
+   "label": "Discount"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-11-22 12:06:55.831554",
+ "modified": "2024-11-27 16:37:05.810139",
  "modified_by": "Administrator",
  "module": "healthcare",
  "name": "Doctor",

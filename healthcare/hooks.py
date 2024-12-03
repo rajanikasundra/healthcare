@@ -24,6 +24,19 @@ app_license = "mit"
 # Includes in <head>
 # ------------------
 
+
+fixtures = [
+    "Workflow",  
+    "Custom Field",  
+    "Property Setter",
+    "Report",
+    "Notification",
+    "Role",
+    "Email Template",
+    "Client Script" 
+]
+
+
 # include js, css files in header of desk.html
 # app_include_css = "/assets/healthcare/css/healthcare.css"
 # app_include_js = "/assets/healthcare/js/healthcare.js"
@@ -136,9 +149,12 @@ doctype_js = {"Customer" : "public/js/customer.js",
 # ---------------
 # Override standard doctype classes
 
-# override_doctype_class = {
-# 	"ToDo": "custom_app.overrides.CustomToDo"
-# }
+override_doctype_class = {
+	# "ToDo": "custom_app.overrides.CustomToDo"
+    "Appoinment" : "healthcare.appoinment.CustomAppoinment",
+    # 'User Permission': "healthcare.appoinment.CustomUserPermission"
+ 
+}
 
 # Document Events
 # ---------------
@@ -150,9 +166,10 @@ doc_events = {
 # 		"on_cancel": "method",
 # 		"on_trash": "method"
 # 	}
+
     "Sales Invoice": {
         "before_save": "healthcare.notification.send_payment_reminders",
-        # "on_submit": "healthcare.notification.update_appointment_status",
+        "on_submit": "healthcare.notification.update_appointment_status",
         # "before_save": "healthcare.sales_invoice.before_save"
     },
 
@@ -162,7 +179,10 @@ doc_events = {
     
     "Appointment":{
         "before_save" : "healthcare.appoinment.before_save"
-    }
+    },
+    # "Item" : {
+    #     "validate" : "healthcare.task.validate"
+    # }
 }
 
 # Scheduled Tasks
@@ -269,3 +289,17 @@ scheduler_events = {
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
 
+
+
+
+
+
+import frappe
+installed_apps = frappe.get_installed_apps()
+# current_url =  frappe.local.site # nosemgrep
+# if current_url in ('uat-pfscl.sigzencloud.com','paragon.sigzencloud.com','dev-pfscl.sigzencloud.com'):
+if "healthcare" in installed_apps: 
+        
+    from erpnext.stock.serial_batch_bundle import SerialBatchCreation # nosemgrep
+    from healthcare.override import customSerialBatchCreation
+    SerialBatchCreation.get_auto_created_serial_nos = customSerialBatchCreation.custom_get_auto_created_serial_nos
